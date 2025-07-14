@@ -5,7 +5,7 @@ import os
 
 fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(ncols=2, nrows=2, figsize=(15, 6))
 
-VALIDATED_FILE_PATH = "./assets/test.tsv"
+VALIDATED_FILE_PATH = "./data/test.tsv"
 
 assert os.path.exists(VALIDATED_FILE_PATH), f"File not found: {VALIDATED_FILE_PATH}"
 
