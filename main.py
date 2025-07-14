@@ -5,14 +5,14 @@ import os
 
 fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(ncols=2, nrows=2, figsize=(15, 6))
 
-VALIDATED_FILE_PATH = "./data/test.tsv"
+TEST_FILE_PATH = "./data/test.tsv"
 
-assert os.path.exists(VALIDATED_FILE_PATH), f"File not found: {VALIDATED_FILE_PATH}"
+assert os.path.exists(TEST_FILE_PATH), f"File not found: {TEST_FILE_PATH}"
 
 
 def main():
     print("Hello from audio-explorer!")
-    df = load_data(VALIDATED_FILE_PATH)
+    df = load_data(TEST_FILE_PATH)
     print(df.head())
     drop_columns(df)
     unique_accents_df = unique_accents(df)
