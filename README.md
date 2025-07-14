@@ -1,4 +1,4 @@
-## Common Voice Exploratory Data Analysis
+### Common Voice Exploratory Data Analysis
 
 This project explores the [Mozilla Common Voice 13.0](https://huggingface.co/datasets/mozilla-foundation/common_voice_13_0) dataset using Python, pandas, and seaborn. The goal is to better understand the structure, quality, and demographics of publicly available speech data as a foundation for building a custom, dialect-aware text-to-speech (TTS) model.
 
@@ -16,6 +16,15 @@ My ultimate goal is to build a custom, dialect-aware TTS model, and this explora
 
 ---
 
+## Setup Instructions (Using pip)
+```bash
+python -m venv .venv
+source .venv/bin/activate  # or .venv\Scripts\activate on Windows
+pip install -r requirements.txt
+jupyter notebook analysis.ipynb
+
+---
+
 ## 📂 Project Structure
 
 ```bash
@@ -29,6 +38,26 @@ common-voice-eda/
 
 ---
 
+## 🛠️ Tools Used
+
+- Python 3.x
+- pandas
+- matplotlib
+- seaborn
+- Jupyter Notebook
+
+---
+
+## Date Source & License
 This project includes data from Mozilla Common Voice 13.0.
 Data is licensed under CC0 1.0 Universal (https://creativecommons.org/publicdomain/zero/1.0/).
 Source: https://huggingface.co/datasets/mozilla-foundation/common_voice_13_0
+
+---
+
+```bash
+# Create environment and install dependencies
+pip install pandas matplotlib seaborn jupyter
+
+# Run notebook
+jupyter notebook analysis.ipynb
