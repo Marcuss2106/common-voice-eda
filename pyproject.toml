@@ -1,0 +1,25 @@
+[project]
+name = "audio-explorer"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "datasets>=4.0.0",
+    "matplotlib>=3.10.3",
+    "numpy>=2.3.1",
+    "pandas>=2.3.1",
+    "seaborn>=0.13.2",
+]
+
+[dependency-groups]
+dev = [
+    "pyright>=1.1.403",
+    "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
+]
+
+[tool.pyright]
+# ...
+venvPath = "."
+venv = ".venv"
