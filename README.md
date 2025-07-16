@@ -42,7 +42,7 @@ common-voice-eda/
 
 ## 🛠️ Tools Used
 
-- Python 3.x
+- Python 3.13
 - pandas
 - matplotlib
 - seaborn
