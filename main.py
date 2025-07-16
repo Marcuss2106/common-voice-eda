@@ -5,14 +5,14 @@ import os
 
 fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(ncols=2, nrows=2, figsize=(15, 6))
 
-TEST_FILE_PATH = "./data/test.tsv"
+TRAIN_FILE_PATH = "./data/train.tsv"
 
-assert os.path.exists(TEST_FILE_PATH), f"File not found: {TEST_FILE_PATH}"
+assert os.path.exists(TRAIN_FILE_PATH), f"File not found: {TRAIN_FILE_PATH}"
 
 
 def main():
     print("Hello from audio-explorer!")
-    df = load_data(TEST_FILE_PATH)
+    df = load_data(TRAIN_FILE_PATH)
     print(df.head())
     drop_columns(df)
     unique_accents_df = unique_accents(df)
@@ -69,7 +69,14 @@ def dialect_distribution(df: pd.DataFrame):
     df.columns = ["accents", "count"]
     df = df.sort_values(by="count", ascending=False)
     df = df.iloc[0:10]
-    ax2.pie(df["count"], startangle=90)
+
+    percents = 100.0 * df["count"] / df["count"].sum()
+    colors, text = ax2.pie(df["count"], startangle=90)
+    labels = [
+        "{0} — {1:1.2f}%".format(accent, count)
+        for accent, count in zip(df["accents"], percents)
+    ]
+    ax2.legend(colors, labels, loc="center left", bbox_to_anchor=(-2, 0.5), fontsize=8)
     ax2.set_title("Dialect Distribution")
 
 
@@ -79,8 +86,14 @@ def sentence_length(df: pd.DataFrame):
         return df
 
     sentence_lengths = df["sentence"].apply(lambda x: len(x.split()))
+    sentence_lengths = sentence_lengths[sentence_lengths < 16]
+    counts = sentence_lengths.value_counts().sort_index()
     mean_length = sentence_lengths.mean()
-    sns.histplot(x=sentence_lengths, bins=30, kde=True, ax=ax3)
+    smoothed_counts = counts.rolling(window=3, center=True, min_periods=1).mean()
+    ax3.bar(counts.index, counts.values, width=0.9, alpha=0.5, label="Histogram")
+    ax3.plot(
+        smoothed_counts.index, smoothed_counts.values, color="b", label="Smoothed Line"
+    )
     ax3.axvline(x=mean_length, color="r", label=f"Mean: ≈{round(mean_length)} words")
     ax3.legend()
     ax3.set_title("Sentence Length Distribution")
@@ -95,7 +108,13 @@ def samples_by_age_group(df: pd.DataFrame):
 
     samples_by_age_group = df["age"].dropna().value_counts()
     sns.countplot(
-        x="age", data=df, order=samples_by_age_group.index, palette="Spectral", ax=ax4
+        x="age",
+        data=df,
+        order=samples_by_age_group.index,
+        palette="Spectral",
+        hue="age",
+        ax=ax4,
+        legend=False,
     )
     ax4.set_title("Samples by Age Group")
     ax4.tick_params(axis="x", labelrotation=45)
@@ -126,7 +145,7 @@ def drop_columns(df: pd.DataFrame) -> pd.DataFrame:
     drop_columns = [col for col in df.columns if col not in required_columns]
     df.drop(columns=drop_columns, axis=1, inplace=True)
 
-    print("Unused columns dropped succesfully")
+    print("Unused columns dropped successfully")
 
     return df
 
