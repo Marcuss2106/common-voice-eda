@@ -8,7 +8,7 @@ My ultimate goal is to build a custom, dialect-aware TTS model, and this explora
 
 ## 📌 Project Goals
 
-- Perform exploratory data analysis (EDA) on the `test.tsv` split of Common Voice 13.0
+- Perform exploratory data analysis (EDA) on the `train.tsv` split of Common Voice 13.0
 - Understand speaker demographics (age, gender, accent)
 - Analyze sentence length distribution
 - Identify potential biases and data quality issues
@@ -31,7 +31,7 @@ jupyter notebook analysis.ipynb
 ```bash
 common-voice-eda/
 ├── data/
-│   └── test.tsv              # Sourced from Common Voice 13.0 (English)
+│   └── train.tsv              # Sourced from Common Voice 13.0 (English)
 ├── analysis.ipynb            # Main Jupyter Notebook for EDA
 ├── main.py   				  # Reusable script version
 ├── plots/                    # Saved charts and figures
